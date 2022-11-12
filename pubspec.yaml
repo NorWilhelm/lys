@@ -1,0 +1,42 @@
+name: lys
+description: Application to control RGB LED Strip by sending HTTP requests to a webserver running on an Arduino.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 0.0.1+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.4
+  flutter_svg: ^1.0.3
+  fl_chart: ^0.35.0 # May not be needed
+  auto_route: ^5.0.2
+  get_it: ^7.2.0
+  flutter_hooks: ^0.18.4
+  hooks_riverpod: ^2.1.1
+  dartz: ^0.10.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+  build_runner: ^2.3.2
+  auto_route_generator: ^5.0.3
+  lint: ^1.10.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+        - asset: fonts/Poppins-Medium.ttf
+        - asset: fonts/Poppins-SemiBold.ttf
+        - asset: fonts/Poppins-Bold.ttf
