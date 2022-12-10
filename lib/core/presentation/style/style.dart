@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lys/core/presentation/style/colors.dart';
 
 class PrimaryText extends StatelessWidget {
   final double size;
   final FontWeight fontWeight;
-  final Color color;
   final String text;
   final double height;
 
@@ -12,7 +10,6 @@ class PrimaryText extends StatelessWidget {
     Key? key,
     required this.text,
     this.fontWeight = FontWeight.w400,
-    this.color = AppColors.primary,
     this.size = 20,
     this.height = 1.3,
   }) : super(key: key);
@@ -22,7 +19,7 @@ class PrimaryText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        color: color,
+        color: Theme.of(context).colorScheme.primary,
         height: height,
         fontFamily: 'Poppins',
         fontSize: size,

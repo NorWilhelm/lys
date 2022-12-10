@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lys/config/responsive.dart';
+import 'package:lys/core/presentation/config/responsive.dart';
 import 'package:lys/core/presentation/style/colors.dart';
 import 'package:lys/core/presentation/style/style.dart';
 
-class DashboardHeader extends StatelessWidget {
-  const DashboardHeader({
-    Key? key,
-  }) : super(key: key);
+class Header extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+
+  const Header({
+    super.key,
+    required this.title,
+    this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +19,17 @@ class DashboardHeader extends StatelessWidget {
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             PrimaryText(
-              text: 'Dashboard',
+              text: title,
               size: 30.0,
               fontWeight: FontWeight.w800,
             ),
-            PrimaryText(
-              text: 'Lighting & Heating',
-              size: 16,
-              color: AppColors.secondary,
-            ),
+            if (subtitle != null)
+              PrimaryText(
+                text: subtitle.toString(),
+                size: 16,
+              ),
           ],
         ),
         const Spacer(

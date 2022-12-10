@@ -3,7 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lys/core/presentation/routes/app_router.gr.dart';
 import 'package:lys/main.dart';
-import 'package:lys/core/presentation/style/colors.dart'; // TODO: Implement at this level?
+import 'package:lys/core/presentation/style/themes.dart'; // TODO: Referer heller til temakontroller, som vil ha tilstand for init og nåværende tema
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 final initializationProvider = FutureProvider<Unit>((ref) async {
   // await ref.read(sembastProvider).init();
@@ -24,15 +25,18 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
 class AppWidget extends ConsumerWidget {
   const AppWidget({Key? key}) : super(key: key);
 
-  // final appRouter = AppRouter();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = getIt<AppRouter>();
-    return MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Lys',
-        routerDelegate: router.delegate(),
-        routeInformationParser: router.defaultRouteParser());
+
+    return ThemeProvider(
+        initTheme: Themes.standard,
+        builder: (context, myTheme) {
+          return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              title: 'Lys',
+              routerDelegate: router.delegate(),
+              routeInformationParser: router.defaultRouteParser());
+        });
   }
 }

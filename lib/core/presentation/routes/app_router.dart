@@ -1,17 +1,21 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:lys/core/presentation/navigation_page.dart';
-import 'package:lys/dashboard.dart';
-import 'package:lys/automation.dart';
-import 'package:lys/test.dart';
+import 'package:lys/core/presentation/page_controller.dart';
+import 'package:lys/views/dashboard/dashboard_page.dart';
+import 'package:lys/views/automation/automation_page.dart';
+import 'package:lys/views/testarea/test_page.dart';
+import 'package:lys/views/appsettings/settings_page.dart';
+
+// Not currently in use. Consider removing if not needed.
 
 // const noTransition = TransitionsBuilders.noTransition;
-const fadeInTransition = TransitionsBuilders.fadeIn;
+//const fadeInTransition = TransitionsBuilders.fadeIn;
+const defaultTransition = TransitionsBuilders.noTransition;
 
 @MaterialAutoRouter(routes: [
   CustomRoute(
       path: '/',
-      page: NavigationPage,
-      transitionsBuilder: fadeInTransition,
+      page: PageController,
+      transitionsBuilder: defaultTransition,
       initial: true,
       children: [
         CustomRoute(
@@ -22,13 +26,17 @@ const fadeInTransition = TransitionsBuilders.fadeIn;
         CustomRoute(
           path: 'automation',
           page: Automation,
-          transitionsBuilder: fadeInTransition,
+          transitionsBuilder: defaultTransition,
         ),
         CustomRoute(
           path: 'test',
           page: Test,
-          transitionsBuilder: fadeInTransition,
-        )
+          transitionsBuilder: defaultTransition,
+        ),
+        CustomRoute(
+            path: 'settings',
+            page: Settings,
+            transitionsBuilder: defaultTransition)
       ])
 ])
 class $AppRouter {}

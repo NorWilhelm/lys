@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lys/config/responsive.dart';
-import 'package:lys/config/size_config.dart';
+import 'package:lys/core/presentation/config/responsive.dart';
+import 'package:lys/core/presentation/config/size_config.dart';
 import 'package:lys/core/presentation/style/colors.dart';
 import 'package:lys/core/presentation/style/style.dart';
-import 'components/components.dart';
+import 'package:lys/core/presentation/header.dart';
+import 'package:lys/core/presentation/app_bar_actions_item.dart';
 
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
@@ -31,7 +32,10 @@ class Test extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AutomationHeader(),
+                      const Header(
+                        title: 'Testarea',
+                        subtitle: 'Provingground',
+                      ),
                       SizedBox(
                         height: Responsive.isDesktop(context)
                             ? SizeConfig.blockSizeVertical! * 5
@@ -43,7 +47,11 @@ class Test extends StatelessWidget {
                           runSpacing: 20,
                           spacing: 20,
                           alignment: WrapAlignment.spaceBetween,
-                          children: const [Text('Testing Area.')],
+                          children: const [
+                            Text('Testing Area.'),
+                            Text(
+                                'Implementer HTTP forespørsler, (eller zigbee)')
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -60,20 +68,25 @@ class Test extends StatelessWidget {
                               PrimaryText(
                                 text: 'Balance',
                                 size: Responsive.isDesktop(context) ? 16 : 14,
-                                color: AppColors.secondary,
                               ),
                               PrimaryText(
-                                text: '\$1500',
+                                text: 'okey',
                                 size: Responsive.isDesktop(context) ? 30 : 22,
                                 fontWeight: FontWeight.w800,
                               ),
+                              Ink(
+                                decoration: const ShapeDecoration(
+                                  color: Colors.lightBlue,
+                                  shape: CircleBorder(),
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.android),
+                                  color: Colors.white,
+                                  onPressed: () {},
+                                ),
+                              ),
                             ],
                           ),
-                          PrimaryText(
-                            text: 'Past 30 Days',
-                            size: Responsive.isDesktop(context) ? 16 : 14,
-                            color: AppColors.secondary,
-                          )
                         ],
                       ),
                       SizedBox(
@@ -92,17 +105,11 @@ class Test extends StatelessWidget {
                             size: 30.0,
                             fontWeight: FontWeight.w800,
                           ),
-                          PrimaryText(
-                            text: 'Transaction of past 6 months',
-                            size: 16,
-                            color: AppColors.secondary,
-                          ),
                         ],
                       ),
                       SizedBox(
                         height: SizeConfig.blockSizeVertical! * 5,
                       ),
-                      const Text('There will be more'),
                     ],
                   ),
                 ),
