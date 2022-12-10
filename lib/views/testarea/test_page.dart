@@ -9,7 +9,7 @@ import 'package:lys/core/presentation/app_bar_actions_item.dart';
 class Test extends StatelessWidget {
   const Test({Key? key}) : super(key: key);
 
-  // Test
+  // Test.
 
   @override
   Widget build(BuildContext context) {
