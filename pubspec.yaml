@@ -3,18 +3,16 @@ description: Application to control RGB LED Strip by sending HTTP requests to a 
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.1+1
+version: 0.0.3+3
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
 
-dependencies:
+dependencies: # TODO: Sort this alphabetically??
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.4
   flutter_svg: ^1.0.3
-  fl_chart: ^0.35.0 # May not be needed
-  auto_route: ^5.0.2
   get_it: ^7.2.0
   flutter_hooks: ^0.18.4
   hooks_riverpod: ^2.1.1
@@ -23,6 +21,10 @@ dependencies:
   badges: ^2.0.3
   animated_theme_switcher: "^2.0.5"
   adaptive_navigation: ^0.0.7
+  dio: ^4.0.6
+  freezed: ^2.3.2
+  json_annotation: ^4.7.0
+  flutter_adaptive_scaffold: ^0.0.8
 
 
 dev_dependencies:

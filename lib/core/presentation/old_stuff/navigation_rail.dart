@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lys/core/presentation/config/size_config.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:lys/core/presentation/config/size_config.dart';
 
 final pageIndexProvider = StateNotifierProvider<PageIndex, int?>((ref) {
   return PageIndex();
@@ -58,8 +58,7 @@ class NavRail extends ConsumerWidget {
                     label: Text('Dashboard'),
                   ),
                   NavigationRailDestination(
-                    icon: Icon(Icons
-                        .schedule_outlined), // TODO: Find an icon which is filled.
+                    icon: Icon(Icons.schedule_outlined),
                     selectedIcon: Icon(Icons.schedule),
                     label: Text('Automation'),
                   ),

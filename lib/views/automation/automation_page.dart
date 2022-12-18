@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lys/core/presentation/config/responsive.dart';
 import 'package:lys/core/presentation/config/size_config.dart';
-import 'package:lys/core/presentation/style/colors.dart';
 import 'package:lys/core/presentation/style/style.dart';
 import 'package:lys/core/presentation/header.dart';
 import 'package:lys/core/presentation/app_bar_actions_item.dart';
@@ -107,7 +106,7 @@ class Automation extends StatelessWidget {
             flex: 4,
             child: Container(
               height: SizeConfig.screenHeight,
-              color: AppColors.secondaryBg,
+              color: Theme.of(context).backgroundColor,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(30),
                 child: Column(

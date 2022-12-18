@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lys/core/presentation/config/responsive.dart';
-import 'package:lys/core/presentation/config/size_config.dart';
-import 'package:lys/core/presentation/style/colors.dart';
-import 'package:lys/core/presentation/navigation_rail.dart';
-import 'package:lys/core/presentation/app_bar_actions_item.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:lys/views/dashboard/dashboard_page.dart';
 import 'package:lys/views/automation/automation_page.dart';
+import 'package:lys/views/testarea/presentation/test_page.dart';
 import 'package:lys/views/appsettings/settings_page.dart';
-import 'package:lys/views/testarea/test_page.dart';
 
-// Previous name: NavigationPage or navigation_page.dart
-class PageController extends ConsumerWidget {
-  const PageController({Key? key}) : super(key: key);
+final pageIndexProvider = StateNotifierProvider<PageIndex, int?>((ref) {
+  return PageIndex();
+});
+
+class PageIndex extends StateNotifier<int?> {
+  PageIndex() : super(null);
+
+  // TODO?: void initState() { state = 0; } -This will make sure that the Dashboard icon will be filled at startup.
+
+  set index(int? index) {
+    state = index;
+  }
+
+  void setIndex(int? index) {
+    state = index;
+  }
+
+  int? get index => state;
+}
+
+class PageControllerView extends ConsumerWidget {
+  const PageControllerView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    GlobalKey<ScaffoldState> drawerKey = GlobalKey();
-    SizeConfig().init(context);
-
     final currentPageIndex = ref.watch(pageIndexProvider);
 
     Widget getPageView() {
@@ -31,57 +43,61 @@ class PageController extends ConsumerWidget {
         case 2:
           return const Test();
         case 3:
-          return const Settings();
+          return const SettingsView();
         default:
           return const Dashboard();
       }
     }
 
-    //final teee = ref.watch(selectedIndexProvider.notifier).index;
+    // Define the children to display within the body at different breakpoints.
+    final List<Widget> children = <Widget>[
+      for (int i = 0; i < 10; i++)
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            color: const Color.fromARGB(255, 255, 201, 197),
+            height: 400,
+          ),
+        )
+    ];
 
-    return ThemeSwitchingArea(child: Builder(
-      builder: (context) {
-        return Scaffold(
-          key: drawerKey,
-          drawer: SizedBox(
-            //child: SideMenu(),
-            width: 93,
-            child: NavRail(),
+    return ThemeSwitchingArea(child: Builder(builder: (context) {
+      return BottomNavigationBarTheme(
+          data: const BottomNavigationBarThemeData(
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.black,
+            backgroundColor: Colors.white,
           ),
-          appBar: !Responsive.isDesktop(context)
-              ? AppBar(
-                  elevation: 0,
-                  backgroundColor: AppColors.white,
-                  leading: IconButton(
-                      onPressed: () {
-                        drawerKey.currentState!.openDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.menu,
-                        color: AppColors.black,
-                      )),
-                  actions: const [AppBarActionItem()],
-                )
-              : const PreferredSize(
-                  preferredSize: Size.zero,
-                  child: SizedBox(),
-                ),
-          body: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (Responsive.isDesktop(context))
-                Expanded(
-                  child: NavRail(),
-                ),
-              Expanded(flex: 11, child: getPageView()),
-              /*const Expanded(
-                child: DashboardHeader(),
-              ),*/
-              // if (tes2t == 1) const Expanded(flex: 12, child: DashboardHeader())
-            ],
-          ),
-        );
-      },
-    ));
+          child: AdaptiveScaffold(
+              smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
+              mediumBreakpoint:
+                  const WidthPlatformBreakpoint(begin: 700, end: 1000),
+              largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
+              useDrawer: false,
+              internalAnimations: false,
+              onSelectedIndexChange: (int index) {
+                ref.read(pageIndexProvider.notifier).setIndex(index);
+              },
+              destinations: const <NavigationDestination>[
+                NavigationDestination(
+                    icon: Icon(Icons.home), label: 'Dashboard'),
+                NavigationDestination(
+                    icon: Icon(Icons.schedule), label: 'Automation'),
+                NavigationDestination(
+                    icon: Icon(Icons.dataset), label: 'Testing'),
+                NavigationDestination(
+                    icon: Icon(Icons.settings), label: 'Settings')
+              ],
+              body: (_) => getPageView(),
+              //body: (_) => GridView.count(crossAxisCount: 2, children: children),
+              smallBody: (_) => getPageView(),
+              // Define a default secondaryBody.
+              //secondaryBody: (_) =>
+              //    Container(color: const Color.fromARGB(255, 234, 158, 192)),
+              // Override the default secondaryBody during the smallBreakpoint to be
+              // empty. Must use AdaptiveScaffold.emptyBuilder to ensure it is properly
+              // overridden.
+              smallSecondaryBody: AdaptiveScaffold.emptyBuilder));
+    }));
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:lys/core/presentation/routes/app_router.gr.dart';
+import 'package:lys/core/presentation/OnlineStatusBadge.dart';
 
 class AppBarActionItem extends StatelessWidget {
   const AppBarActionItem({
@@ -12,9 +11,10 @@ class AppBarActionItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        const OnlineStatusBadge(),
         IconButton(
             onPressed: () {
-              AutoRouter.of(context).navigate(const DashboardRoute());
+              debugPrint('Pressed the button');
             },
             icon: const Icon(Icons.calendar_month_outlined)),
         const SizedBox(

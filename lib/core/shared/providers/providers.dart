@@ -1,13 +1,18 @@
-import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lys/core/domain/server_notifier.dart';
+import 'package:lys/views/testarea/domain/test_notifier.dart';
 
-class IndexProvider extends ChangeNotifier {
-  int index;
-  IndexProvider({
-    this.index = 0,
-  });
-  void changeIndex(int newValue) {
-    index = newValue;
-    notifyListeners();
-  }
-}
+final serverProvider =
+    StateNotifierProvider<ServerNotifier, ServerModel>((ref) {
+  return ServerNotifier(ref: ref, dio: ref.watch(dioProvider));
+});
+
+final dioProvider = Provider((ref) => Dio());
+
+final testProvider = StateNotifierProvider<TestNotifier, TestModel>((ref) {
+  return TestNotifier(
+    dio: ref.watch(dioProvider),
+    server: ref.watch(serverProvider).server,
+  );
+});
